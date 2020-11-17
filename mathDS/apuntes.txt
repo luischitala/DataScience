@@ -1,0 +1,191 @@
+Incertidumbre, tomar decisiones con información completa
+El azar no es más que la medida de nuestra ignorancia. Los fenómenos fortuitos son, por definición, aquellos cuyas leyes o causas simplemente ignoramos. Henri Poincaré
+
+La probabilidad
+Es un lenguaje que nos da herramientas para cuantificar la incertidumbre. 
+Axiomas de la probabilidad
+-Suceso elemental "El resultado de lanzar un dado es 4"
+-Suceso: "El resultado de lanzar un dado es par" 
+
+Ex
+
+P = N sucesos exitosos/ N sucesos totales { creencia del total
+
+
+Espacio muestral, se incluyen todas las posibles ocurrencias de un evento aleatorio. 
+- Probabilidades
+- Sucesos elementales
+
+Fuentes de incertidumbre:
+-Datos
+-Atributos de modelo
+-Arquitectura del modelo
+
+Un modelo se alimenta con variables predictoras o atributos
+Modelo de clasificación, c1 deportes, c2 videojuegos, cn política
+
+Entrenamiento -> Etiquetas, extracción de atributos, Algoritmo ML
+Predicción -> Extractor de atributos -> atributos 
+
+Todas las etapas del modelo
+-Arquitectura -Diseño, Naive Bayes
+-Parámetros -Entrenamiento MLE
+-Hiper-parámetros -Calibración(Optimización bayesiana)- Interpretación de la predicción- -Resultado
+
+Tipos de probabilidad:
+-Conjunta(joint)
+Considera la ocurrencia de diferentes pero simultaneos eventos aleatorios
+¿Cuál es la probabilidad de que ambos dados caigan en número par?
+P(par,par) = 9/36 = 1/4 Probabilidad conjunta, de muchos sucesos, pueden ser más y se calcula haciendo un conteo directo al espacio muestral
+-Marginal
+¿Cuál es la probabilidad de A caiga en par, dado B en par?
+P(A=par| B=par ) (Condicional) 18 posibildades 
+P(B = par) = {Se va a usar el EM completo, pero se toman los números pares 2,4,6 9/18+18/36 = 9/36=1/4
+P(A, B) = P(A|B)P(B){Regla del producto O expreción general para las 
+LA suma de todas las probabilidades conjuntas sobre los demás estados que no están considerando A 
+
+-Condicional, no reflejan relaciones de causalidad. 
+-Condicional
+
+Correlaciones de eventos
+
+A= el resultado de lanzar un dado es 4
+B= El resultado del anzar u ndado es par
+C = el resultado de lanzar un dado es impar 
+
+P(A)= 1/6
+P(A | B)= 1/3 1/6 Probabilidad de que ocurra A dado que ya ocurrió B
+
+P(A|C) {1,3,5} {4} = 0
+A y C están negativamente correlacionadas  Exluyente no tiene nada que ver independiente
+
+Juego de ruleta 
+Jugador 1 {1,2,3,4}
+Jugador 2 {5,6,7,8}
+P(1) = 4/8
+P(1|B) = 0/4 = 0
+
+Por lo que el jugador 2 {4,5,6,7}
+P(1|B) = 1/4 = 25% por lo que se redujo la probabilidad del jugador contrario
+
+Por lo que los ejemplos anteriores están negativamente correlacionados
+
+Jugador 2 {}
+
+Ejemplos avanzados con probabilidad
+
+Paradoja niño o niña
+
+Una mujer tiene dos bebés donde el mayor es un varón
+Una mujer tiene dos bebés donde uno de ellos es varón 
+
+Cuál es la probabilidad de que esta mujer tenga dos hijos varones?
+
+Primero se calcula el espacio muestral eje x exe y, respectivo sexo de uno u otro F/M
+FM MM
+FF MF
+La probabilidad sin conocimiento previo, cual es la p, de que salgan dos varones
+P(MM) = (se considera todo el espacio muestral) 1/4
+P(MM | mayor M) = (paradoja) 1/2
+
+P(MM | alguno M) = 1/3 
+información diferente 
+
+El problema de Monthy Hall
+La idea era que el participante debía de escojer una puerta
+P1, P2, P3
+x,x,o
+x,o,x
+o,x,x
+
+La probabilidad siempre es 1/3 
+Tras un error, se volverá a observar el espacio muestra, con una probabilidad completamente cambiada. 
+1/2 sería 50% 
+Pero al parecer la probabilidad es falsa, El cambio es en la información disponible paratomar una decisión. 
+Para la toma de información, se agregan a las columnas, sobre stay o switch 
+P1,P2,P3,stay, switch.
+x,x,o,x,o
+x,o,x,x,o
+o,x,x,o,x
+
+Qué es una distribución ? Distribuciones de probabilidad
+
+Volvemos al cálculo X aleatoria P(X=x) { Probabilidad de ocurrencia
+Una dsitribución de proabilidad es una función que coge una variable aleatoria, y a cada uno de sus posibles estados dentro de su espacio muestral le asigna una probabilidad.
+
+Letras mayúsculas se utilizan para denotar variables
+Minúsculas para el espacio 
+
+Las funciones tienen dominios
+Discretos {1,2,3,4,5,6}
+
+Continuo {0, infinito }
+
+Densidad de probabilidad, las funciones pueden tener caracteres discretos o continuos
+la continua se representa con una curva y representa la probabilidad de que pase
+
+
+Las distribuciones se pueden integrar y derivar 
+Area bajo la curva, se da por la integral de la probabilidad de una función
+Distribución acumulada represental a probabilidad de que la probabilidad de que la variable aleatoria tome valores  
+
+Probabildiad acumulada, 
+
+La probabilidad depende del cálculo 
+
+Distribuciones discretas
+Distribución de Bernoulli
+Variables con ocurrencias binarias
+P(X = 1) = p
+P(X = 0) = 1 - p
+Secuencias repetitivas de eventos tipo Bernoulli La distribución binomial
+"Todos los eventos igualmente probables"
+P(2 caras | 3 lanzamientos) = 3/8
+
+
+Generadores aleatorios, son simulaciones computarizadas que producen experimentos, en la medida que el número de lanzamientos sea más grande, la fracción de las caras se acerca al 50% 
+
+Para eso se usan algoritmos determinísticos, para simular experimentos reales. 
+
+Distribuciones continuas 
+Distribución normal(Gaussiana)
+
+Cómo estimar una distribución 
+
+Qué es MLE
+Estimación de máxima verosimilitud
+Un framework para stimación de densidades de probabilidad
+Elementos de MLE
+-Escoger la distribución:
+	Teniendo solo una muestra de los datos
+- Escoger los parámetros de la distribución:
+	Que mejor se ajustan la distribución a los datos
+
+#Variables ajustables dentro de machine learning 
+
+Diversas (tres ) hipótesis
+
+Regresión Logística
+Estimación de máxima verosimilitud
+Cross Entropy función de error
+
+Aplicación de regresión logística
+Estimación de máxima verosimilitud
+Precicciones del modelo es la y con acento circunflejo
+
+Teorema de bayes Escuela bayessiana (frecuentistas vs bayesianos)
+
+Probabilidades a priori 
+LA evidencia debe de estar condicionada por las P(B) probabilidades iniciales que pensabamos de los eventos u ocurrencias de una variable aleatoria.
+
+Bayes en Machine Learning
+Inferencia bayesiana 
+
+MAP VS MLE Maximum A Posteriori
+Se estima hallar un máximo 
+Clasificador de naive bayes
+Simplificador
+
+
+
+
