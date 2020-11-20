@@ -1,0 +1,217 @@
+Historia SQL
+
+Bases
+Modeo y álgebra relacional de Edgar CODD
+
+IBM. creó SEQUEL en los años 70
+
+System/38(1979)
+SQL/DS(1981)
+DB2(1983)
+
+Relational company
+Creó el fotware Oracle V2 en 1979
+
+Álgebra relacional 
+
+Operadores binarios, producto cartesiano
+    Todos los elementos de una y los de otra
+
+Proyección Select
+
+SELECT *;
+
+SELECT field AS alias;
+
+SELECT COUNT(id), SUM(quantity), AVG(age);
+
+SELECT MIN(date), MAX(quantity);
+
+SELECT IF(500<1000, "YES", "NO");
+
+SELECT OrderID, Quantity,
+
+CASE
+    WHEN Quantity > 30 THEN "Over 30"
+    WHEN Quantity = 30 THEN "Over 30"
+    ELSE "Under 30"
+END AS QuantityText
+
+-Origen FROM
+SELECT * FROM tabla_diaria;
+
+SELECT *
+FROM tabla_diaria AS td
+    JOIN tabla_mensuar AS tm 
+    ON td.pk = tm.fk;
+
+El from puede ser de otra base de datos
+Lo regresa como una base de datos local 
+SELECT *
+FROM dblink('
+    dbname=somedb
+    port=5432 host=someserver
+    user=someuser
+    password=somepwd',
+    'SELECT gid, area, perimeter,
+            state, county,
+            tract, blockgroup,
+            block, the_geom
+    FROM massgis.cens2000blocks')
+    AS blockgroups
+
+
+-Productos Cartesianos Join 
+Son como un producto cartesiano, se genera un producto cartesiano
+En donde se tiene una serie de elementos de un lado y del otro 
+Y se trae como resultado una unión o multiplicación sea el caso
+
+SELECT *
+FROM tabla_diaria AS td
+    JOIN tabla_diaria_mensual AS tm
+    ON td.pk = tm.fk
+
+Left join: De la tabla A puede tener en común elementos o no de la tabla 
+B
+Lo que importa es que existan en A y se traen los elementos de la tabla 
+A que coinciden con la B
+
+Right join: A la inversa del left join
+
+Exclusive Left Join.
+Trae los que están en el conjunto A pero no tienen que contener 
+ninguno del B
+
+Exclusive Right Join:
+Lo mismo pero a la inversa
+
+Full Outer Join (pesado de procesar)
+Trae todo, contra todo 
+
+
+Exclusive Full Outer Join
+Trae A y B pero no lo que tienen en común 
+
+Inner Join (Default)
+Solo lo que se tiene en común en ambas tablas 
+
+
+Selección Where (sigma) Da pie a la selección por cumplimiento de 
+sentencias lógicas
+Da mucha flexibilidad ´
+
+//El más básico
+SELECT *
+FROM  tabla_diaria
+WHERE id = 1;
+
+SELECT *
+FROM tabla_diaria
+WHERE cantidad > 10;
+
+SELECT *
+FROM tabla_diaria
+WHERE cantidad < 100;
+
+SELECT *
+FROM tabla_diaria
+WHERE cantidad > 10
+    AND cantidad < 100;
+
+SELECT *
+FROM tabla_diaria
+WHERE cantidad BETWEEN 10
+    AND cantidad 100;
+
+
+SELECT *
+FROM users
+WHERE name = "Israel"
+    AND (
+        lastname = "Vázquez"
+        Or
+        lastname = "López"
+    );
+
+SELECT *
+FROM users
+WHERE name = "Israel"
+    AND lastname = "Vázquez"
+    OR lastname = "López";
+
+
+-LIKE
+_ sustitulle una letra, comodín
+% de ahí en adelante no importa
+
+SELECT *
+FROM users
+WHERE name LIKE "Is%";
+
+SELECT *
+FROM users
+WHERE name LIKE "IS_ael";
+
+SELECT *
+FROM users
+WHERE name NOT LIKE "Is_ael";
+
+SELECT * 
+FROM users
+WHERE name IS NULL;
+
+SELECT * 
+FROM users
+WHERE name IS NOT NULL;
+
+SELECT * 
+FROM users
+WHERE name IN ('Israel', 'Laura', 'Luis');
+
+Ordenamiento Order By
+
+
+SELECT *
+FROM tabla_diaria
+ORDER BY fecha;
+
+//Ordenar Ascendente
+SELECT *
+FROM tabla_diaria
+ORDER BY fecha ASC;
+
+//Ordenar Descendente
+SELECT *
+FROM tabla_diaria
+ORDER BY fecha DESC;
+
+Índices
+Excelentes para búsquedas y ordenamientos.
+
+Cuidar para alta transaccionalidad. 
+
+Agregación Group By
+
+SELECT *
+FROM tabla_diaria
+GROUP BY marca;
+
+SELECT *
+FROM tabla_diaria
+GROUP BY marca, modelo;
+
+-Limitantes Limit 
+
+SELECT *
+FROM tabla_diaria
+LIMIT 1500;
+
+SELECT *
+FROM tabla_diaria
+OFFSET 1500
+LIMIT 1500;
+
+
+
+
+
